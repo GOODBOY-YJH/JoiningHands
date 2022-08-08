@@ -13,8 +13,19 @@ public class Student {
     public static void main(String[] args) {
         Student main = new Student();
         // 开启两个线程去执行test方法
-        new Thread(main::test).start();
-        new Thread(main::test).start();
+        // new Thread(main::test).start();
+        // new Thread(main::test).start();
+        tableSizeFor(17);
+    }
+
+    static final int tableSizeFor(int cap) {
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return n;
     }
 
     private synchronized void test() {

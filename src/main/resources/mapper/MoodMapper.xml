@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.joininghands.db.mapper.MoodMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.joininghands.db.domain.Mood">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="createId" column="create_id" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="desc" column="desc" jdbcType="VARCHAR"/>
+            <result property="photo" column="photo" jdbcType="OTHER"/>
+            <result property="isresolve" column="isResolve" jdbcType="TINYINT"/>
+            <result property="resolveTime" column="resolve_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,create_id,type,
+        title,desc,photo,
+        isResolve,resolve_time,create_time
+    </sql>
+</mapper>

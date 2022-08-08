@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.joininghands.db.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.joininghands.db.domain.User">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="mateId" column="mate_id" jdbcType="INTEGER"/>
+            <result property="openId" column="open_id" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="OTHER"/>
+            <result property="photo" column="photo" jdbcType="VARCHAR"/>
+            <result property="tel" column="tel" jdbcType="CHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,mate_id,open_id,
+        name,sex,photo,
+        tel,nickname,status,
+        create_time
+    </sql>
+</mapper>
