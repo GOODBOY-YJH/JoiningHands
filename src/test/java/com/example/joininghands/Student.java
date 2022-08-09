@@ -108,3 +108,63 @@ class Trie {
         return true;
     }
 }
+
+
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[] temp = new int[n + 1];
+        int max = 0;
+        for(int i = 0; i < m; ++i){
+            for(int j = 0; j < n; ++j){
+                temp[j] = matrix[i][j] == '1' ? temp[j] + 1 : 0;
+            }
+            // 哨兵
+            temp[matrix[0].length] = -1;
+            max = Math.max(max, maxArea(temp, n));
+        }
+        return max;
+    }
+
+    public int maxArea(int[] temp, int n){
+        int[] stack = new int[n + 2];
+        int st = 0;
+        // LinkedList<Integer> list = new LinkedList<>();
+        // // 哨兵 前后各一个
+        // list.addLast(-1);
+        stack[st] = -1;
+        int max = 0;
+        for(int i = 0; i < temp.length; ++i){
+            if(st < 1){
+                stack[++st] = i;
+            }
+            else if(st >= 1 && temp[i] > temp[stack[st]]){
+                stack[++st] = i;
+            }else {
+                while(st >= 1 && temp[i] <= temp[stack[st]]){
+                    int l = stack[st--];;
+                    int r = stack[st];
+                    int side =  (i - r - 1) < temp[l] ? (i - r - 1) : temp[l];
+                    max = Math.max(max, side * side);
+                }
+                stack[++st] = i;
+            }
+            // if(list.size() <= 1){
+            //     list.addLast(i);
+            // }
+            // else if(list.size() > 1 && temp[i] > temp[list.peekLast()]){
+            //     list.addLast(i);
+            // }else {
+            //     while(list.size() > 1 && temp[i] <= temp[list.peekLast()]){
+            //         int l = list.pollLast();
+            //         int r = list.peekLast();
+            //         int side =  (i - r - 1) < temp[l] ? (i - r - 1) : temp[l];
+            //         max = Math.max(max, side * side);
+            //     }
+            //     list.addLast(i);
+            // }
+        }
+        return max;
+    }
+}

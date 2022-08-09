@@ -4,23 +4,50 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.joininghands.db.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.joininghands.db.domain.User">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="mateId" column="mate_id" jdbcType="INTEGER"/>
-            <result property="openId" column="open_id" jdbcType="VARCHAR"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="sex" column="sex" jdbcType="OTHER"/>
-            <result property="photo" column="photo" jdbcType="VARCHAR"/>
-            <result property="tel" column="tel" jdbcType="CHAR"/>
-            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-    </resultMap>
+    <!--<resultMap id="BaseResultMap" type="com.example.joininghands.db.domain.User">-->
+    <!--        <id property="id" column="id" jdbcType="INTEGER"/>-->
+    <!--        <result property="mateId" column="mate_id" jdbcType="INTEGER"/>-->
+    <!--        <result property="openId" column="open_id" jdbcType="VARCHAR"/>-->
+    <!--        <result property="name" column="name" jdbcType="VARCHAR"/>-->
+    <!--        <result property="sex" column="sex" jdbcType="OTHER"/>-->
+    <!--        <result property="photo" column="photo" jdbcType="VARCHAR"/>-->
+    <!--        <result property="tel" column="tel" jdbcType="CHAR"/>-->
+    <!--        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>-->
+    <!--        <result property="status" column="status" jdbcType="INTEGER"/>-->
+    <!--        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>-->
+    <!--</resultMap>-->
 
-    <sql id="Base_Column_List">
-        id,mate_id,open_id,
-        name,sex,photo,
-        tel,nickname,status,
-        create_time
-    </sql>
+    <!--<sql id="Base_Column_List">-->
+    <!--    id,mate_id,open_id,-->
+    <!--    name,sex,photo,-->
+    <!--    tel,nickname,status,-->
+    <!--    create_time-->
+    <!--</sql>-->
+    <insert id="insert">
+        INSERT INTO user
+        SET
+        <if test="openId!=null">
+            open_id = #{openId},
+        </if>
+        <if test="nickname!=null">
+            nickname = #{nickname},
+        </if>
+        <if test="photo!=null">
+            photo = #{photo},
+        </if>
+        <if test="name!=null">
+            name = #{name},
+        </if>
+        <if test="sex!=null">
+            sex = #{sex},
+        </if>
+        <if test="tel!=null">
+            tel = #{tel},
+        </if>
+        status = #{status},
+        create_time = #{createTime}
+    </insert>
+    <select id="searchIdByOpenId" resultType="java.lang.Integer">
+        SELECT id FROM user WHERE open_id=#{openId} AND status = 1;
+    </select>
 </mapper>

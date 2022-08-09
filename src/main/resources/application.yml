@@ -1,21 +1,20 @@
 server:
-  jetty:
+  tomcat:
+    uri-encoding: utf-8
     threads:
-      acceptors: 4
-      selectors: 8
-  port: 8090
+      max: 200
+      min-spare: 30
+    connection-timeout: 5000ms
+  port: 8080
   servlet:
-    context-path: /emos-api
-    multipart:
-      max-request-size: 10MB
-      max-file-size: 2MB
+    context-path: /join-hands
 
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/emos?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+      url: jdbc:mysql://localhost:3306/joining_hands?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
       username: root
       password: a520520a
       initial-size: 2
@@ -25,3 +24,22 @@ spring:
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password: a520520a
+    jedis:
+      pool:
+        max-active: 1000
+        max-wait: -1ms
+        max-idle: 16
+        min-idle: 8
+
+
+
+wx:
+  #  app-id: wx8815a64e551d64d7
+  app-id: wx8815a64e551d64d7
+  #  app-secret: c38be1ea34673e023b4d01460ff1d6f8
+  app-secret: c38be1ea34673e023b4d01460ff1d6f8
