@@ -1,5 +1,6 @@
 package com.example.joininghands.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
@@ -54,7 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (StrUtil.isNotBlank(code)) {
             String openId = getOpenId(code);
             Integer userId = userMapper.searchIdByOpenId(openId);
-            if (userId != null){
+            if (userId != null) {
                 map.put("userId", userId);
                 result = true;
             }

@@ -1,6 +1,7 @@
 package com.example.joininghands.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.joininghands.common.util.R;
 import com.example.joininghands.controller.form.RegisterForm;
@@ -9,10 +10,7 @@ import com.example.joininghands.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -38,12 +36,22 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "微信小程序登陆")
     public R login(@Valid @RequestBody LoginForm form) {
-        HashMap map = userService.login(form.getCode());
-        boolean result = (boolean) map.get("result");
-        if (result) {
-            int userId = (int) map.get("userId");
-            StpUtil.login(userId);
+        // 把登陆token返回
+        String token=StpUtil.getTokenInfo().getTokenValue();
+        // 检查是否登陆
+        if (StpUtil.isLogin()) {
+            return R.ok().put("result", true).put("token", token);
+        }else {
+            HashMap map = userService.login(form.getCode());
+            boolean result = (boolean) map.get("result");
+            if (result) {
+                int userId = (int) map.get("userId");
+                StpUtil.login(userId);
+                map.put("token", token);
+            }else {
+                map.put("msg", "请先注册");
+            }
+            return R.ok(map);
         }
-        return R.ok(map);
     }
 }
